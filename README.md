@@ -31,3 +31,17 @@ I will explain what the differents files in the folder are used to and what will
 * popup (html/css/javascript) : this is used for the popup that appears when you launch the extension. Currently everything that happens in the extensions is done in these documents so if you need to modify already existing features you will need to modify them.	
 
 After modifying the files of the extension don't forget to press the refresh button in the extensions menu to make sure your chages are effective
+
+## 3. How to use the extension
+
+The popup looks like this : 
+
+<img width="514" alt="Capture d’écran 2022-08-03 à 13 30 58" src="https://user-images.githubusercontent.com/105653206/182607476-8473af35-aa02-4c46-9ac2-5533fbe2ee83.png">
+
+
+in the text boxes, enter the css selectors corresponding to what’s written next to them (same as in admin 360). Then, there are 3 buttons : 
+
+* A button labeled "setup" which will setup the values used by the extension and color the text taken into account by the inputed selectors : always use this button when you change something in the values otherwise they won't be taken into account
+* A button labeled "display selectors" which displays the selectors that were inputed last time you pressed the setup button
+* A button labeled "display scraping" which displays the text taken into account by the inputed selectors
+
