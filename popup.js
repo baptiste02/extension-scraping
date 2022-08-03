@@ -1,7 +1,7 @@
-//récuperer la div ou on voudra insérer les boutons
+//get the div for the buttons
 let page = document.getElementById("buttonDiv");
 
-//fonction pour mettre des valeurs par defaut
+//function to initialize default values
 function defaultValues() {
   chrome.storage.sync.get("root", ({ root }) => {
     chrome.storage.sync.get("titre", ({ titre }) => {
@@ -29,7 +29,7 @@ function createExclusion(exc, p) {
   return func(p);
 }
 
-//fonction pour créer le texte qui sera affiché pour montrer les selecteurs
+//function to create the text used to display the selectors
 function create_selectors_text() {
   chrome.storage.sync.get("root", ({ root }) => {
     chrome.storage.sync.get("titre", ({ titre }) => {
@@ -65,7 +65,7 @@ function create_selectors_text() {
   });
 }
 
-//fonction pour créer une boîte d'alerte personalisée
+//function to create a custom alert box
 function createCustomAlert(txt) {
   var ALERT_TITLE = "texte";
   var ALERT_BUTTON_TEXT = "Ok";
@@ -105,14 +105,14 @@ function createCustomAlert(txt) {
 
   alertObj.style.display = "block";
 }
-//fonction pour retirer la boîte(déclenchée par le bouton ok)
+//function to remove the alert box (triggered by the button ok)
 function removeCustomAlert() {
   document
     .getElementsByTagName("body")[0]
     .removeChild(document.getElementById("modalContainer"));
 }
 
-//fonction pour initialiser les chrome.storage
+//function to initialize the values inputed by the user
 function setUpValues() {
   chrome.storage.sync.set({ root: document.querySelector("#root").value });
   chrome.storage.sync.set({ titre: document.querySelector("#titre").value });
@@ -135,8 +135,8 @@ function createExclusionScript() {
   document.body.appendChild(exclusion);
 }
 
-//fonction déclenchée par le bouton "setup + colors"
-function test_scraping() {
+//function for the button "setup"
+function setup() {
   chrome.storage.sync.get("root", ({ root }) => {
     chrome.storage.sync.get("titre", ({ titre }) => {
       chrome.storage.sync.get("paragraphes", ({ paragraphes }) => {
@@ -162,7 +162,7 @@ function test_scraping() {
               p.forEach((pItem) => {
                 pItem.style.setProperty("background-color", "blue");
               });
-              if (t && createExclusion(exc, t)) {
+              if (t) {
                 t.style.setProperty("background-color", "green");
               }
               if (st) {
@@ -226,16 +226,15 @@ function test_scraping() {
 
 // create the buttons
 function constructbuttons() {
-  //setup + colors button
   let setUpButton = document.createElement("button");
-  setUpButton.textContent = "setup + colors";
+  setUpButton.textContent = "setup";
   setUpButton.addEventListener("click", async () => {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     setUpValues();
     document.querySelector("#test").value = "value";
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      function: test_scraping,
+      function: setup,
     });
   });
   page.appendChild(setUpButton);
@@ -258,15 +257,6 @@ function constructbuttons() {
     });
   });
   page.appendChild(textButton);
-
-  /* let testButton = document.createElement("button");
-  testButton.textContent = "test";
-  testButton.addEventListener("click", async () => {
-    let excl = new Function("excl", "return `(p)=> ${excl}`");
-    let tst = document.getElementById("exclusion").value;
-    //alert(excl(tst));
-  });
-  page.appendChild(testButton); */
 }
 
 // Initialize the page by constructing the button

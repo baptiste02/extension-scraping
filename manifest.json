@@ -3,9 +3,7 @@
   "description": "test pour l'amélioration de la scraping",
   "version": "1.0",
   "manifest_version": 3,
-  "background": {
-    "service_worker": "background.js"
-  },
+  
   "permissions": ["storage", "activeTab", "scripting"],
   "web_accessible_resources": [{ 
     "resources": ["popup.js", "popup.html"],
